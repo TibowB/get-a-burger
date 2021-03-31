@@ -1,0 +1,49 @@
+<div class="container my-3">
+  <div class="row">
+    <div class="col-xl">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let burger of burgers">
+          <h3>{{ burger.id }}. {{ burger.name }}</h3>
+          <p>{{ burger.price | currency: "EUR" }}</p>
+          <button
+            *ngIf="burger.isAvailable; else elseBlock"
+            class="btn btn-warning btn-sm"
+            (click)="onBurgerUnavailable(burger.id)"
+          >
+            Non Disponible
+          </button>
+          <ng-template #elseBlock>
+            <button
+              class="btn btn-success btn-sm"
+              (click)="onBurgerAvailable(burger.id)"
+            >
+              Disponible
+            </button>
+          </ng-template>
+        </li>
+      </ul>
+      <a routerLink="/new" class="btn btn-primary my-3">Nouveau Burger</a>
+    </div>
+    <div class="col-xl">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let order of orders">
+          <h3>Commande {{ order.id }}</h3>
+          <div *ngFor="let burger of order.burgers">
+            <p>Burgers : {{ burger.quantity }} {{ burger.name }}</p>
+          </div>
+          <p>Prix : {{ order.price | currency: "EUR" }}</p>
+          <p>Utilisateur : {{ order.user }}</p>
+          <p>E-mail : {{ order.email }}</p>
+          <p *ngIf="order.isValidated">Commande validée</p>
+          <button
+            class="btn btn-success"
+            *ngIf="!order.isValidated"
+            (click)="onValidateOrder(order.id)"
+          >
+            Valider la commande
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

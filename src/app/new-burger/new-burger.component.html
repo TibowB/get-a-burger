@@ -1,0 +1,49 @@
+<form class="new-burger" [formGroup]="burgerForm" (ngSubmit)="onSubmitForm()">
+  <div>
+    <label for="name" class="form-label my-3">Burger</label>
+    <input type="text" id="name" class="form-control" formControlName="name" />
+  </div>
+  <div>
+    <label for="price" class="form-label my-3">Prix</label>
+    <input
+      type="number"
+      id="price"
+      class="form-control"
+      formControlName="price"
+    />
+  </div>
+  <div>
+    <label for="url" class="form-label my-3">URL</label>
+    <input
+      type="text"
+      id="url"
+      class="form-control"
+      formControlName="url"
+      placeholder="Lien vers l'image"
+    />
+  </div>
+  <div formArrayName="ingredients">
+    <p class="form-label mt-3 mb-1">Ingredients</p>
+    <button
+      type="button"
+      class="btn btn-success btn-sm my-3"
+      (click)="onAddIngredient()"
+    >
+      Ajouter un ingrédient
+    </button>
+    <div
+      class="form-group"
+      *ngFor="let ingredientControl of getIngredients().controls; let i = index"
+    >
+      <input type="text" class="form-control" [formControlName]="i" />
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary my-3"
+    [disabled]="burgerForm.invalid"
+  >
+    Ajouter
+  </button>
+</form>

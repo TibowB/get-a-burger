@@ -1,0 +1,41 @@
+<h3>Panier</h3>
+
+<div class="cart">
+  <ul *ngFor="let item of items" class="list-group">
+    <li class="list-group-item">
+      <div class="cart__list">
+        <p>
+          {{ item.quantity }} {{ item.name }} |
+          {{ item.price | currency: "EUR" }}
+        </p>
+        <button
+          (click)="removeItemFromCart(item.id)"
+          class="cart__remove btn btn-secondary btn-sm"
+        >
+          Retirer du panier
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="container">
+  <p class="fw-bolder text-uppercase">
+    Prix Total : {{ finalPrice | currency: "EUR" }}
+  </p>
+  <div class="d-flex justify-content-between align-items-center">
+    <button
+      routerLink="/checkout"
+      class="btn btn-success"
+      [disabled]="items.length === 0"
+    >
+      Passer la commande
+    </button>
+    <button
+      (click)="clearCart()"
+      class="btn btn-secondary"
+      [disabled]="items.length === 0"
+    >
+      Vider le panier
+    </button>
+  </div>
+</div>

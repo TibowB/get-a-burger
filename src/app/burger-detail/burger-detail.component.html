@@ -1,0 +1,44 @@
+<div class="burger">
+  <div *ngIf="burger">
+    <h2 class="my-3">{{ burger.name }}</h2>
+    <img class="burger__picture img-fluid" src="{{ burger.url }}" />
+    <p class="my-3">Ingrédients : {{ burger.ingredients }}</p>
+    <p class="my-3">Prix : {{ burger.price | currency: "EUR" }}</p>
+    <p *ngIf="burger.isAvailable; else elseBlock1" class="my-3">Disponible</p>
+    <!-- Not available -->
+    <ng-template #elseBlock1
+      ><p class="my-3">Produit non disponible</p></ng-template
+    >
+    <form [formGroup]="addToCartForm" (ngSubmit)="onSubmit(burger, burger.id)">
+      <div>
+        <label for="quantity" class="form-label">Quantité</label>
+        <input
+          class="form-control mb-3"
+          type="number"
+          id="quantity"
+          formControlName="quantity"
+          min="1"
+          max="10"
+          value="1"
+        />
+      </div>
+
+      <button
+        class="btn btn-primary"
+        *ngIf="burger.isAvailable; else elseBlock2"
+        type="submit"
+      >
+        Ajouter au panier
+      </button>
+      <!-- Not available -->
+      <ng-template #elseBlock2>
+        <button class="btn btn-primary my-3" type="submit" disabled>
+          Ajouter au panier
+        </button>
+      </ng-template>
+    </form>
+    <p *ngIf="addedToCart" class="text-success my-3">
+      {{ burger.quantity }} {{ burger.name }} ajouté au panier !
+    </p>
+  </div>
+</div>

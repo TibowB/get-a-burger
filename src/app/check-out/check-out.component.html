@@ -1,0 +1,16 @@
+<h3>Passer la commande</h3>
+
+<form class="new-burger" [formGroup]="orderForm" (ngSubmit)="onSubmitForm()">
+  <label for="user" class="form-label my-3">Utilisateur</label>
+  <input type="text" id="user" class="form-control" formControlName="user" />
+  <label for="email" class="form-label my-3">E-mail</label>
+  <input type="email" id="email" class="form-control" formControlName="email" />
+
+  <button
+    type="submit"
+    class="btn btn-success my-3"
+    [disabled]="orderForm.invalid"
+  >
+    Soumettre
+  </button>
+</form>

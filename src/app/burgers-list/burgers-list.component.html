@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center">
+  <button class="btn btn-sm btn-danger my-3" routerLink="/admin">
+    Page admin
+  </button>
+</div>
+<div class="container-fluid d-flex justify-content-around mt-5">
+  <div class="row">
+    <div class="card" *ngFor="let burger of burgers">
+      <img class="card-img-top img-fluid" src="{{ burger.url }}" />
+      <div class="card-body">
+        <h5 class="card-title">{{ burger.name }}</h5>
+        <p class="card-text">{{ burger.price | currency: "EUR" }}</p>
+        <a routerLink="/burger/{{ burger.id }}" class="btn btn-success">
+          Commander
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
